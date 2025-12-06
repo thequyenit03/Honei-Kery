@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .roles(user.getRoles())
+                .roleId(user.getRoles().getId())
                 .token(token)
                 .build();
     }
@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .roles(user.getRoles())
+                .roleId(user.getRoles().getId())
                 .token(token)
                 .build();
     }

@@ -76,7 +76,7 @@ public class DataInitializer {
                 u.setPhone("0123456789");
                 u.setAddress("Hanoi");
                 u.setStatus("ACTIVE");
-                u.setPassword(encoder.encode("user123"));
+                u.setPassword(encoder.encode("123"));
                 u.setRoles(role);
 
                 userRepository.save(u);
