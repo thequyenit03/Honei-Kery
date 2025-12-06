@@ -1,6 +1,6 @@
 package com.example.service.exception;
 
-import com.example.service.dto.ApiResponse;
+import com.example.service.dto.common.ApiResponse;
 import com.example.service.utils.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

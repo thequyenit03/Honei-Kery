@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
                 .phone(request.getPhone())
                 .address(request.getAddress())
                 .status("ACTIVE")
-                .roles(Set.of(roleUser))
+                .roles(roleUser)
                 .build();
         user = userRepository.save(user);
 
@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .roles(user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()))
+                .roles(user.getRoles())
                 .token(token)
                 .build();
     }
@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .roles(user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()))
+                .roles(user.getRoles())
                 .token(token)
                 .build();
     }

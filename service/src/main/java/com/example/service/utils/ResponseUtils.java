@@ -1,6 +1,6 @@
 package com.example.service.utils;
 
-import com.example.service.dto.ApiResponse;
+import com.example.service.dto.common.ApiResponse;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +34,7 @@ public class ResponseUtils {
                 .dateTime(LocalDateTime.now())
                 .errorCode(errorCode)
                 .message(message)
+                .data(null)
                 .success(false)
                 .build();
     }

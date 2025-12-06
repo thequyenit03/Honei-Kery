@@ -1,5 +1,6 @@
 package com.example.service.dto.auth;
 
+import com.example.service.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,6 @@ public class AuthResponse {
     private Integer id;
     private String username;
     private String email;
-    private Set<String> roles;
+    private Role roles;
     private String token; //fake token
 }
