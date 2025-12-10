@@ -15,6 +15,6 @@ public class PagedResponse<T> {
     private List<T> items; // danh sách dữ liệu (ví dụ: list Product)
     private int page; // số trang hiện tại
     private int size; // số phần tử mỗi trang
-    private int totalItems; // tổng số bản ghi trong DB
+    private long totalItems; // tổng số bản ghi trong DB
     private int totalPages; // tổng số trang
 }

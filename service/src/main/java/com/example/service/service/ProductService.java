@@ -1,10 +1,13 @@
 package com.example.service.service;
 
 import com.example.service.dto.common.PagedResponse;
+import com.example.service.dto.product.ProductCreateRequest;
+import com.example.service.dto.product.ProductResponse;
+import com.example.service.dto.product.ProductUpdateRequest;
 import com.example.service.entity.Product;
 
 public interface ProductService {
-    PagedResponse<Product> getProducts(
+    PagedResponse<ProductResponse> getProducts(
             Integer page,
             Integer size,
             String sortBy,
@@ -13,8 +16,11 @@ public interface ProductService {
             String keyword
     );
 
-    Product getProductById(Integer id);
-    Product createProduct(Product product);
-    Product updateProduct(Integer id, Product product);
+    ProductResponse getProductById(Integer id);
+
+    ProductResponse createProduct(ProductCreateRequest request);
+
+    ProductResponse updateProduct(Integer id, ProductUpdateRequest request);
+
     void deleteProduct(Integer id);
 }

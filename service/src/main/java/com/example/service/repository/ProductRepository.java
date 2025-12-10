@@ -14,8 +14,8 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     Page<Product> findByActiveTrueAndCategory_Id(Integer categoryId, Pageable pageable);
 
     // Tìm theo tên sản phẩm
-    Page<Product> findByActiveTrueAndNameContainingIgnoreCase(Pageable pageable, String keyword);
+    Page<Product> findByActiveTrueAndNameContainingIgnoreCase(String keyword, Pageable pageable);
 
     //Vừa lọc category vừa search theo tên sản phẩm
-    Page<Product> findByActiveTrueAndCategory_IdAndNameContainingIgnoreCase(Pageable pageable, Integer catetoryId, String keyword);
+    Page<Product> findByActiveTrueAndCategory_IdAndNameContainingIgnoreCase(Integer catetoryId, String keyword, Pageable pageable);
 }
