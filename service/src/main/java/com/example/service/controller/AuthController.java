@@ -1,7 +1,6 @@
 package com.example.service.controller;
 
-import com.cloudinary.Api;
-import com.example.service.dto.ApiResponse;
+import com.example.service.dto.common.ApiResponse;
 import com.example.service.dto.auth.AuthResponse;
 import com.example.service.dto.auth.LoginRequest;
 import com.example.service.dto.auth.RegisterRequest;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")

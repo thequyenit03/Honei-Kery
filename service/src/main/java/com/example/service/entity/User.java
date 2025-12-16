@@ -28,7 +28,7 @@ public class User {
     @JsonIgnore //Không trả password ra API
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
     @Column(name = "full_name")
@@ -47,13 +47,11 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Role> roles;
+    private Role roles;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
@@ -67,15 +65,15 @@ public class User {
     @EqualsAndHashCode.Exclude
     private Set<CartItem> cartItems;
 
-//    @OneToMany(mappedBy = "user")
-//    @JsonIgnore
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Set<Review> reviews;
-//
-//    @OneToMany(mappedBy = "user")
-//    @JsonIgnore
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Set<WishList> wishlists;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Review> reviews;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Wishlist> wishlists;
 }
