@@ -31,11 +31,18 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Tắt CSRF vì dùng JWT
                 .authorizeHttpRequests(auth -> auth
-                        // Cho phép không cần đăng nhập với các API này
+                        // 1. PUBLIC: Ai cũng vào được (Không cần đăng nhập)
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
-                        // Các API còn lại bắt buộc phải có token
+                        .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/categories/**").permitAll()
+
+                        // 2. ADMIN ONLY: Chỉ Admin mới được Thêm/Sửa/Xóa
+                        // Lưu ý: hasRole("ADMIN") tương đương với việc kiểm tra quyền "ROLE_ADMIN" trong Database
+                        .requestMatchers(HttpMethod.POST, "/api/products/**", "/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**", "/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**", "/api/categories/**").hasRole("ADMIN")
+
+                        // 3. AUTHENTICATED: Các chức năng còn lại chỉ cần Đăng nhập (User/Admin đều được)
+                        // Ví dụ: Xem profile, đặt hàng (sau này)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Không dùng Session
