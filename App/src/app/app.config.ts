@@ -12,6 +12,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzResizableService } from 'ng-zorro-antd/resizable';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 import { provideEchartsCore } from 'ngx-echarts';
 import * as echarts from 'echarts/core';
@@ -24,7 +25,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),    
     provideRouter(routes), provideNzIcons(icons),
     provideNzI18n(vi_VN),
-    importProvidersFrom(FormsModule),    
+    importProvidersFrom(FormsModule),
+    importProvidersFrom(NgxPermissionsModule.forRoot()),
     provideAnimationsAsync(),
     NzModalService,
     NzDrawerService,
