@@ -1,5 +1,6 @@
 package com.example.service.dto.product;
 
+import com.example.service.dto.category.CategoryResponse;
 import com.example.service.entity.Category;
 import lombok.Builder;
 import lombok.Getter;

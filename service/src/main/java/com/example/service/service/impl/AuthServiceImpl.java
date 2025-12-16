@@ -8,8 +8,11 @@ import com.example.service.entity.User;
 import com.example.service.exception.BadRequestException;
 import com.example.service.repository.RoleRepository;
 import com.example.service.repository.UserRepository;
+import com.example.service.security.JwtUtils;
 import com.example.service.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,9 @@ import java.util.stream.Collectors;
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
+    private final JwtUtils jwtUtils;
+    private final AuthenticationManager authenticationManager;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -56,38 +62,67 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         user = userRepository.save(user);
 
-        // 4. Tạo token "giả" (UUID)
-        String token = UUID.randomUUID().toString();
+        //String token = UUID.randomUUID().toString();
+        String token = jwtUtils.generateToken(user.getUsername());
 
         return AuthResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .roleId(user.getRoles().getId())
+                .roleName(user.getRoles().getName())
                 .token(token)
                 .build();
     }
 
     @Override
     public AuthResponse login(LoginRequest request) {
-        // 1. Tìm user theo username hoặc email
-        User user = userRepository.findByUsername(request.getUsernameOrEmail())
-                .or(() -> userRepository.findByEmail(request.getUsernameOrEmail()))
-                .orElseThrow(() -> new BadRequestException("Username hoặc email không đúng !"));
+//        // 1. Tìm user theo username hoặc email
+//        User user = userRepository.findByUsername(request.getUsernameOrEmail())
+//                .or(() -> userRepository.findByEmail(request.getUsernameOrEmail()))
+//                .orElseThrow(() -> new BadRequestException("Username hoặc email không đúng !"));
+//
+//        // 2. Check password
+//        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+//            throw new BadRequestException("Mật khẩu không đúng !");
+//        }
+//
+//        // 3. Tạo token "giả"
+//        String token = UUID.randomUUID().toString();
+//
+//        return AuthResponse.builder()
+//                .id(user.getId())
+//                .username(user.getUsername())
+//                .email(user.getEmail())
+//                .roleId(user.getRoles().getId())
+//                .token(token)
+//                .build();
 
-        // 2. Check password
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new BadRequestException("Mật khẩu không đúng !");
+        // 1. Xác thực bằng AuthenticationManager (nó sẽ tự check password encode)
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(), // Lưu ý: CustomUserDetailsService cần xử lý logic email/username nếu muốn
+                            request.getPassword()
+                    )
+            );
+        } catch (Exception e) {
+            throw new BadRequestException("Tài khoản hoặc mật khẩu không đúng");
         }
 
-        // 3. Tạo token "giả"
-        String token = UUID.randomUUID().toString();
+        // 2. Nếu qua bước trên tức là đúng pass -> Tìm user để lấy thông tin
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new BadRequestException("User not found"));
+
+        // 3. Tạo Token JWT
+        String token = jwtUtils.generateToken(user.getUsername());
 
         return AuthResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .roleId(user.getRoles().getId())
+                .roleName(user.getRoles().getName())
                 .token(token)
                 .build();
     }

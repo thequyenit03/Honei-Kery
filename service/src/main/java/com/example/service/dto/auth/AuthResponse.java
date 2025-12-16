@@ -15,5 +15,6 @@ public class AuthResponse {
     private String username;
     private String email;
     private Integer roleId;
-    private String token; //fake token
+    private String roleName;
+    private String token;
 }
