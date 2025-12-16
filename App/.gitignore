@@ -1,0 +1,67 @@
+# --- Dependencies ---
+/node_modules
+/.pnp
+.pnp.js
+
+# --- Angular & Build Output ---
+/dist
+/tmp
+/out-tsc
+/bazel-out
+# Cache của Angular (Quan trọng cho các bản Angular mới)
+/.angular
+
+# --- Security & Environment Variables (QUAN TRỌNG VỚI TEAM) ---
+# Không bao giờ commit file chứa API Key hay config local
+.env
+.env.local
+.env.*.local
+src/environments/environment.development.ts 
+# (Tùy chọn: Nếu team bạn dùng file environment.ts để chứa key bí mật thì ignore nó, 
+# còn nếu chỉ chứa config chung thì giữ lại)
+
+# --- Testing ---
+/coverage
+/playwright-report
+/test-results
+/cypress/videos
+/cypress/screenshots
+
+# --- IDEs & Editors ---
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# --- Visual Studio Code (Cấu hình cho Team) ---
+.vscode/*
+# ! nghĩa là KHÔNG ignore (Giữ lại file này để share cho team)
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+*.code-workspace
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- System Files ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Miscellaneous ---
+.sass-cache/
+/connect.lock
+/libpeerconnection.log
+testem.log
+/typings
