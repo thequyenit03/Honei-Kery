@@ -1,9 +1,8 @@
-package com.example.service.controller;
+package com.example.service.controller.admin;
 
 import com.example.service.dto.category.CategoryRequest;
 import com.example.service.dto.category.CategoryResponse;
 import com.example.service.dto.common.ApiResponse;
-import com.example.service.entity.Category;
 import com.example.service.service.CategoryService;
 import com.example.service.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
@@ -11,13 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/admin/categories")
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryAdminController {
     private final CategoryService categoryService;
 
     @GetMapping

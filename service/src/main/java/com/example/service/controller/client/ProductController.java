@@ -1,11 +1,10 @@
-package com.example.service.controller;
+package com.example.service.controller.client;
 
-import com.cloudinary.Api;
 import com.example.service.dto.common.ApiResponse;
 import com.example.service.dto.common.PagedResponse;
 import com.example.service.dto.product.ProductCreateRequest;
-import com.example.service.dto.product.ProductUpdateRequest;
 import com.example.service.dto.product.ProductResponse;
+import com.example.service.dto.product.ProductUpdateRequest;
 import com.example.service.service.ProductService;
 import com.example.service.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
@@ -43,37 +42,5 @@ public class ProductController {
         ApiResponse<ProductResponse> apiResponse = ResponseUtils.success(productResponse, "Thành công");
 
         return ResponseEntity.ok(apiResponse);
-    }
-
-    @PostMapping
-    public ResponseEntity<ApiResponse<ProductResponse>> createProduct(
-            @RequestBody ProductCreateRequest request
-    ) {
-        ProductResponse response = productService.createProduct(request);
-
-        ApiResponse<ProductResponse> apiResponse = ResponseUtils.success(response, "Tạo sản phẩm thành công");
-
-        return ResponseEntity.ok(apiResponse);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponse>> updateProduct(
-            @PathVariable Integer id,
-            @RequestBody ProductUpdateRequest request
-    ) {
-        ProductResponse response = productService.updateProduct(id, request);
-
-        ApiResponse<ProductResponse> apiResponse = ResponseUtils.success(response, "Cập nhật sản phẩm thành công");
-
-        return ResponseEntity.ok(apiResponse);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable Integer id) {
-        productService.deleteProduct(id);
-
-        ApiResponse<Void> apiResponse = ResponseUtils.success(null, "Xóa sản phẩm thành công");
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
