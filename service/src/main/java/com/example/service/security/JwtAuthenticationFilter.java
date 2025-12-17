@@ -31,7 +31,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String username;
 
-        //  || !authHeader.startsWith("Bearer ")
         // 1. Kiểm tra header
         if (authHeader == null) {
             filterChain.doFilter(request, response);
@@ -39,7 +38,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         // 2. Lấy token
-        jwt = authHeader.substring(7);
+        if (authHeader.startsWith("Bearer ")) {
+            jwt = authHeader.substring(7);
+        } else {
+            jwt = authHeader;
+        }
         username = jwtUtils.extractUsername(jwt);
 
         // 3. Nếu có username và chưa được xác thực trong context
