@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/register").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/logout").authenticated()
-                        .requestMatchers("/api/products/**", "/api/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products**", "/api/categories**").permitAll()
 
                         // 2. ADMIN ONLY: Chỉ Admin mới được Thêm/Sửa/Xóa
                         // Lưu ý: hasRole("ADMIN") tương đương với việc kiểm tra quyền "ROLE_ADMIN" trong Database
