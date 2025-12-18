@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/register").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/logout").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/products/**", "/api/categories/**").permitAll()
+                        .requestMatchers("/api/products/**", "/api/categories/**").permitAll()
 
                         // 2. ADMIN ONLY: Chỉ Admin mới được Thêm/Sửa/Xóa
                         // Lưu ý: hasRole("ADMIN") tương đương với việc kiểm tra quyền "ROLE_ADMIN" trong Database
@@ -45,10 +45,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/admin/products/**", "/api/admin/categories/**").hasRole("ADMIN")
 
                         // 3. AUTHENTICATED: Các chức năng còn lại chỉ cần Đăng nhập (User/Admin đều được)
-                        // Ví dụ: Xem profile, đặt hàng (sau này)
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Không dùng Session
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

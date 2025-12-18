@@ -37,7 +37,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductResponse>> getProductById(@PathVariable Integer id) {
-        ProductResponse productResponse = productService.getProductById(id);
+        ProductResponse productResponse = productService.getActiveProductById(id);
 
         ApiResponse<ProductResponse> apiResponse = ResponseUtils.success(productResponse, "Thành công");
 
