@@ -1,0 +1,25 @@
+::ng-deep .coffee-menu.ant-menu {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+::ng-deep .coffee-menu .ant-menu-item,
+::ng-deep .coffee-menu .ant-menu-submenu-title {
+  color: #ffffff !important;
+  font-weight: 500;
+  border-bottom: 2px solid transparent !important;
+}
+
+::ng-deep .coffee-menu .ant-menu-item:hover,
+::ng-deep .coffee-menu .ant-menu-submenu-title:hover,
+::ng-deep .coffee-menu .ant-menu-item-selected {
+  color: #e7dcd3 !important;
+  border-bottom-color: #e7dcd3 !important;
+}
+
+::ng-deep .coffee-menu .ant-menu-submenu-arrow {
+  color: #ffffff !important;
+}
+
+.logo-img {
+  mix-blend-mode: multiply;
+}
