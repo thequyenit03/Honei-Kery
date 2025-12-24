@@ -40,7 +40,6 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<String>> logout() {
-        // với kiểu token stateless (UUID/JWT) thì logout chủ yếu là phía FE xoá token
         // ở đây backend chỉ trả về message cho đúng flow
         ApiResponse<String> apiResponse = ResponseUtils.success(null, "Đăng xuất thành công");
 

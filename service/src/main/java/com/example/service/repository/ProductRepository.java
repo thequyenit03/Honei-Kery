@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     // Lấy tất cả sản phẩm đang active
@@ -18,4 +20,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     //Vừa lọc category vừa search theo tên sản phẩm
     Page<Product> findByActiveTrueAndCategory_IdAndNameContainingIgnoreCase(Integer catetoryId, String keyword, Pageable pageable);
+
+    // Tìm sản phẩm theo id và trạng thái true
+    Optional<Product> findByIdAndActiveTrue(Integer id);
 }
