@@ -18,6 +18,8 @@ public interface ProductService {
 
     ProductResponse getProductById(Integer id);
 
+    ProductResponse getActiveProductById(Integer id);
+
     ProductResponse createProduct(ProductCreateRequest request);
 
     ProductResponse updateProduct(Integer id, ProductUpdateRequest request);

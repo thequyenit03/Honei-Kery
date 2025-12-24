@@ -1,6 +1,5 @@
-package com.example.service.controller;
+package com.example.service.controller.admin;
 
-import com.cloudinary.Api;
 import com.example.service.dto.common.ApiResponse;
 import com.example.service.dto.common.PagedResponse;
 import com.example.service.dto.product.ProductCreateRequest;
@@ -14,9 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/admin/products")
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductAdminController {
 
     private final ProductService productService;
 

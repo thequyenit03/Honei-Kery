@@ -84,7 +84,7 @@ public class DataInitializer {
                 System.out.println("✅ Default user created: " + userName);
             }
             else{
-                System.out.println("️Default user already exists, skipping creation.");
+                System.out.println("ℹ️  ️Default user already exists, skipping creation.");
             }
 
         };
