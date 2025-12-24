@@ -1,1 +1,76 @@
-<p>layout works!</p>
+<div class="flex flex-col min-h-screen w-full bg-[#f8f5f2]">
+    <header class="flex justify-between items-center px-4 lg:px-8 xl:px-32 py-2 border-b border-[#e7dcd3] bg-[#8b7e74] h-20 sticky top-0 z-50 shadow-sm">
+        
+        <div class="flex items-center">
+            <div class="block lg:hidden mr-4" (click)="toggleDrawer()">
+                <nz-icon class="text-xl cursor-pointer text-white hover:text-[#e7dcd3] transition-colors" nzType="menu" nzTheme="outline" />
+            </div>
+            <a routerLink="" class="logo-text text-2xl lg:text-3xl font-bold text-white! font-serif cursor-pointer hover:text-[#e7dcd3]! transition-colors! no-underline whitespace-nowrap">
+                Honei Kery
+            </a>
+        </div>
+
+        <div class="hidden lg:flex flex-1 justify-center px-8">
+            <ul nz-menu nzMode="horizontal" class="coffee-menu w-full flex justify-center bg-transparent border-none text-xl!">
+                <li nz-menu-item routerLink="/home" nzMatchRouter>
+                    <span>Trang chủ</span>
+                </li>
+                <li nz-submenu nzTitle="Menu">            
+                    <ul>
+                        <li nz-menu-item routerLink="menu/coffee" nzMatchRouter>Cà phê</li>
+                        <li nz-menu-item routerLink="menu/tea" nzMatchRouter>Trà</li>
+                        <li nz-menu-item routerLink="menu/freeze" nzMatchRouter>Freeze</li>
+                        <li nz-menu-item routerLink="menu/sweet-cake" nzMatchRouter>Bánh ngọt</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex items-center space-x-4 lg:space-x-6">
+            <nz-icon class="text-xl cursor-pointer text-white hover:text-[#e7dcd3] transition-colors"
+                [nzType]="isFullscreen ? 'fullscreen-exit' : 'fullscreen'"
+                (click)="toggleFullscreen()">
+            </nz-icon>            
+        
+            <div class="flex items-center cursor-pointer" nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+                <nz-avatar nzSize="default" nzIcon="user" [nzSrc]="undefined" class="bg-[#d7ccc8] text-[#5d4037]"></nz-avatar>
+            </div>
+
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item>
+                        <span nz-icon nzType="user" nzTheme="outline" class="mr-2 text-[#5d4037]"></span> Tài khoản
+                    </li>
+                    <li nz-menu-item nzDanger (click)="logout()">
+                        <span nz-icon nzType="logout" nzTheme="outline" class="mr-2"></span> Đăng xuất
+                    </li>
+                </ul>
+            </nz-dropdown-menu>
+        </div>
+    </header>
+
+    <nz-drawer [nzClosable]="false" [nzVisible]="isVisibleDrawer" nzPlacement="left" nzTitle="Menu" (nzOnClose)="toggleDrawer()">
+            <ng-container *nzDrawerContent>
+                <ul nz-menu nzMode="vertical" nzTheme="light" class="font-medium border-none">
+                    <li nz-menu-item routerLink="/home" nzMatchRouter>
+                        <span>Trang chủ</span>
+                    </li>
+                    <li nz-submenu nzTitle="Menu">
+                        <ul>
+                            <li nz-menu-item routerLink="menu/coffee" nzMatchRouter>Cà phê</li>
+                            <li nz-menu-item routerLink="menu/tea" nzMatchRouter>Trà</li>
+                            <li nz-menu-item routerLink="menu/freeze" nzMatchRouter>Freeze</li>
+                            <li nz-menu-item routerLink="menu/sweet-cake" nzMatchRouter>Bánh ngọt</li>
+                        </ul>
+                    </li>
+                </ul>
+            </ng-container>
+    </nz-drawer>
+
+    <div class="flex flex-col flex-1 overflow-hidden bg-[#f8f5f2]">
+        <nz-content class="flex-1 overflow-auto px-4 lg:px-8 xl:px-32 py-6">
+        <router-outlet></router-outlet>
+        </nz-content>
+    </div>
+  
+</div>

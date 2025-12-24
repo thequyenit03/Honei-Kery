@@ -16,9 +16,6 @@
 .env
 .env.local
 .env.*.local
-src/environments/environment.development.ts 
-# (Tùy chọn: Nếu team bạn dùng file environment.ts để chứa key bí mật thì ignore nó, 
-# còn nếu chỉ chứa config chung thì giữ lại)
 
 # --- Testing ---
 /coverage
