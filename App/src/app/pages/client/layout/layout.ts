@@ -67,7 +67,7 @@ export class Layout extends BaseComponent implements OnDestroy {
   }
 
   logout(): void {
-
+    this.router.navigate(['/login']);
   }
 
   getTitleFromPath(path: string): string {
