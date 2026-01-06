@@ -30,12 +30,18 @@
             <nz-icon class="text-xl cursor-pointer text-white hover:text-[#e7dcd3] transition-colors"
                 [nzType]="isFullscreen ? 'fullscreen-exit' : 'fullscreen'"
                 (click)="toggleFullscreen()">
-            </nz-icon>            
+            </nz-icon>
+
+            <nz-icon class="text-xl cursor-pointer text-white hover:text-[#e7dcd3] transition-colors"
+                nzType="shopping-cart" nzTheme="outline"
+                (click)="openDrawerCart()"
+                >
+            </nz-icon>
         
             <div class="flex items-center cursor-pointer" nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
                 <nz-avatar nzSize="default" nzIcon="user" [nzSrc]="undefined" class="bg-[#d7ccc8] text-[#5d4037]"></nz-avatar>
             </div>
-
+            
             <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu nzSelectable>
                     <li nz-menu-item>

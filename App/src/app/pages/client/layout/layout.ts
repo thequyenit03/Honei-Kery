@@ -11,7 +11,8 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { BaseComponent } from '../../../components/base';
-import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { Cart } from '../cart/cart';
 
 @Component({
   standalone: true,
@@ -29,13 +30,14 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
     NzBadgeModule,
     NzDropDownModule,
     NzDividerModule,
-    NzDrawerModule
+    NzDrawerModule    
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
 export class Layout extends BaseComponent implements OnDestroy {
   private router = inject(Router);
+  private nzDrawerService = inject(NzDrawerService);
   protected isVisibleDrawer = false;
   isFullscreen = false;
 
@@ -68,6 +70,14 @@ export class Layout extends BaseComponent implements OnDestroy {
 
   logout(): void {
     this.router.navigate(['/login']);
+  }
+
+  openDrawerCart(): void {
+    this.nzDrawerService.create({
+      nzContent: Cart,
+      nzTitle: undefined,
+      nzFooter: undefined      
+    })
   }
 
   getTitleFromPath(path: string): string {
