@@ -3,7 +3,7 @@
 FROM maven:3.9-eclipse-temurin-21 AS build
 
 # Tạo thư mục làm việc trong container
-WORKDIR /app
+WORKDIR /app/service
 
 # Copy toàn bộ source code vào container
 COPY . .
@@ -19,8 +19,9 @@ WORKDIR /app
 
 # Copy file .jar đã build từ Stage 1 sang Stage 2
 # Lưu ý: Lệnh này tự động lấy file .jar trong folder target
-COPY --from=build /app/target/*.jar /app/
+COPY --from=build /app/service/target/*.jar app.jar
 RUN rm /app/*-plain.jar && mv /app/*.jar /app/app.jar
+
 # Mở port 8080 (Phải khớp với server.port trong application.properties)
 EXPOSE 8080
 
