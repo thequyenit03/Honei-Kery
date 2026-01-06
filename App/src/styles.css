@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.ant-input-prefix {
+  margin-right: 8px;
+}
+
+.ant-card-body {
+  padding: 20px;
+}
+
+.ant-input-group .ant-input {
+  border-radius: 8px !important;
+}
+
+.ant-input-group-addon {
+  border-radius: 8px !important;
+}

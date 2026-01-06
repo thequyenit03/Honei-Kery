@@ -1,0 +1,18 @@
+::ng-deep .coffee-menu.ant-menu {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+::ng-deep .coffee-menu .ant-menu-item,
+::ng-deep .coffee-menu .ant-menu-submenu-title {
+  color: #ffffff !important;
+  font-weight: 500;
+  border-bottom: 2px solid transparent !important;
+}
+
+::ng-deep .coffee-menu .ant-menu-submenu-arrow {
+  color: #ffffff !important;
+}
+
+.logo-img {
+  mix-blend-mode: multiply;
+}
