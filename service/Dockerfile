@@ -39,7 +39,7 @@ WORKDIR /app
 COPY . .
 
 # 3. Bây giờ mới di chuyển vào folder service
-WORKDIR /app/service
+#WORKDIR /app
 
 # 4. Chạy lệnh build (lúc này Maven sẽ thấy pom.xml ngay tại chân)
 RUN mvn clean package -DskipTests
@@ -50,7 +50,7 @@ WORKDIR /app
 
 # Copy file .jar từ đường dẫn đã build
 # Lưu ý: file nằm trong /app/service/target/
-COPY --from=build /app/service/target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 #EXPOSE 8080
 #ENTRYPOINT ["java", "-jar", "app.jar"]
