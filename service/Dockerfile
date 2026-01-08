@@ -52,5 +52,8 @@ WORKDIR /app
 # Lưu ý: file nằm trong /app/service/target/
 COPY --from=build /app/service/target/*.jar app.jar
 
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#EXPOSE 8080
+#ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# PORT của Koyeb + JAVA_OPTS tuỳ chỉnh
+CMD ["sh", "-c", "java ${JAVA_OPTS:-} -jar app.jar --server.port=${PORT:-8080}"]
