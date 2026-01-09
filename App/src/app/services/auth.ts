@@ -23,8 +23,7 @@ export class Auth {
     return this.http.post<ApiResponse<LoginResponse>>(`${this.apiUrl}${ApiConstants.API_AUTH_LOGIN}`, loginRequest, options)
       .pipe(
         tap((res) => {
-          if(res && res.errorCode === '200') {
-            console.log('token', res.data.token);
+          if(res && res.errorCode === '200') {            
             updateAuth(res.data.token, null, null, null);
           }else {
             throw new Error(res.message);
@@ -43,6 +42,12 @@ export class Auth {
       this.notification.success('<b>Thành công</b>', 'Đăng xuất thành công');
     })
   }
+
+  isAuthenticated(): boolean {
+    const { token } = authStore.getValue();    
+    if (!token) return false;
+    return true;
+  }  
 
   get Token(): string | null {
     return authStore.getValue().token;
