@@ -13,6 +13,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { BaseComponent } from '../../../components/base';
 import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { Cart } from '../cart/cart';
+import { Auth } from '../../../services/auth';
 
 @Component({
   standalone: true,
@@ -36,6 +37,7 @@ import { Cart } from '../cart/cart';
   styleUrl: './layout.css',
 })
 export class Layout extends BaseComponent implements OnDestroy {
+  private authService = inject(Auth);
   private router = inject(Router);
   private nzDrawerService = inject(NzDrawerService);
   protected isVisibleDrawer = false;
@@ -69,6 +71,7 @@ export class Layout extends BaseComponent implements OnDestroy {
   }
 
   logout(): void {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 

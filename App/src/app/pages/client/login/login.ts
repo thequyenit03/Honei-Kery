@@ -8,8 +8,9 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { Auth } from '../../../services/auth';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { catchError, finalize, Subject, takeUntil } from 'rxjs';
 import { EyeOutline, EyeInvisibleOutline, UserOutline, LockOutline } from '@ant-design/icons-angular/icons';
+import { LoginRequest } from '../../../models/auth.models';
 
 @Component({
   standalone: true,
@@ -38,8 +39,7 @@ export class Login {
   private unsubscribe: Subject<any> = new Subject<any>();
 
   constructor() {
-    this.loginForm = this.fb.group({
-      companyCode: ['', Validators.required],
+    this.loginForm = this.fb.group({      
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
@@ -47,6 +47,29 @@ export class Login {
   }
 
   submitForm(): void {
+    if(this.loginForm.valid) {
+      const data = this.loginForm.value;
+      this.isLoading = true;
+      this.authService.login(data as LoginRequest)
+        .pipe(
+          takeUntil(this.unsubscribe),
+          finalize(() => this.isLoading = false)
+        )
+        .subscribe((res) => {
+          if(res && res.errorCode === '200') {
+            this.router.navigate(['/home']).then(() => {
+              this.notification.success('<b>Thành công</b>', 'Đăng nhập thành công');
+            });
+          }
+        })        
+    } else {
+      Object.values(this.loginForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
 
 }

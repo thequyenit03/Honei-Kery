@@ -17,12 +17,14 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { provideEchartsCore } from 'ngx-echarts';
 import * as echarts from 'echarts/core';
 import { icons } from './icons-provider';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 registerLocaleData(vi);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),    
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(withInterceptors([AuthInterceptor])),
     provideRouter(routes), provideNzIcons(icons),
     provideNzI18n(vi_VN),
     importProvidersFrom(FormsModule),
