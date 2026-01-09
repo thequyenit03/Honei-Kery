@@ -50,7 +50,7 @@ public class Product {
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_name")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     //Relation
