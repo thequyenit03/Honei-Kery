@@ -1,26 +1,24 @@
-# --- Stage 1: Build ứng dụng ---
-# Sử dụng Maven và JDK 21 để build file .jar
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+# Giai đoạn 1: Build ứng dụng (Sử dụng Maven)
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy file cấu hình maven trước để tận dụng cache
+# Copy file pom.xml và tải các dependency (để tận dụng cache layer của Docker)
 COPY pom.xml .
-# Download dependencies (giúp build nhanh hơn ở các lần sau)
 RUN mvn dependency:go-offline
 
-# Copy toàn bộ source code và build
+# Copy toàn bộ mã nguồn và build
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# --- Stage 2: Chạy ứng dụng ---
-# Sử dụng JRE 21 (bản nhẹ) để chạy ứng dụng
+# Giai đoạn 2: Chạy ứng dụng (Sử dụng JRE nhẹ)
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Copy file .jar từ Stage 1 sang Stage 2
+# Copy file .jar đã build từ giai đoạn 1
+# Lưu ý: Tên file jar có thể thay đổi tùy project, dòng này lấy file jar đầu tiên tìm thấy trong target
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port 8080
+# Expose port mặc định của Spring Boot
 EXPOSE 8080
 
 # Lệnh chạy ứng dụng
