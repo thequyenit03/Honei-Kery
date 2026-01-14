@@ -1,5 +1,6 @@
 package com.example.service.controller;
 
+import com.example.service.dto.auth.UserResponse;
 import com.example.service.dto.common.ApiResponse;
 import com.example.service.dto.auth.AuthResponse;
 import com.example.service.dto.auth.LoginRequest;
@@ -8,10 +9,7 @@ import com.example.service.service.AuthService;
 import com.example.service.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -35,6 +33,13 @@ public class AuthController {
     public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody LoginRequest request) {
         AuthResponse authResponse = authService.login(request);
         ApiResponse<AuthResponse> apiResponse = ResponseUtils.success(authResponse, "Đăng nhập thành công");
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<ApiResponse<UserResponse>> getUserProfile(){
+        UserResponse profile = authService.getProfile();
+        ApiResponse<UserResponse> apiResponse = ResponseUtils.success(profile, "Thành công");
         return ResponseEntity.ok(apiResponse);
     }
 

@@ -1,6 +1,6 @@
 package com.example.service.dto.auth;
 
-import com.example.service.entity.Role;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +11,9 @@ import java.util.Set;
 @Setter
 @Builder
 public class AuthResponse {
-    private Integer id;
-    private String username;
-    private String email;
-    private Integer roleId;
-    private String roleName;
-    private String token;
+    @JsonProperty("access_token")
+    private String accessToken;
+
+    @JsonProperty("user")
+    private UserResponse user;
 }
