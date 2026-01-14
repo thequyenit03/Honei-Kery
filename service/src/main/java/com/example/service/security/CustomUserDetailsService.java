@@ -20,11 +20,18 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Chuyển Role của entity sang Role của Security
-        // Lưu ý: User entity của cậu đang có 1 Role, nhưng Security cần List/Set
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRoles().getName());
+        // Lấy tên role từ DB
+        String roleName = user.getRoles().getName();
+
+        // FIX LỖI 403: Đảm bảo role luôn có tiền tố "ROLE_"
+        // Ví dụ: Nếu DB là "ADMIN" -> Sẽ thành "ROLE_ADMIN" để khớp với hasRole("ADMIN")
+        if (!roleName.startsWith("ROLE_")) {
+            roleName = "ROLE_" + roleName;
+        }
+
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleName);
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
