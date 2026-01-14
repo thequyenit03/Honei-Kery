@@ -59,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
                 .fullName(request.getFullName())
                 .phone(request.getPhone())
                 .roles(userRole)
-                .status(true)
+                .status("ACTIVE")
                 .build();
 
         // 4. Lưu vào DB

@@ -39,7 +39,7 @@ public class DataInitializer {
                 admin.setFullName("Honei-Kery Admin");
                 admin.setPhone("0123456789");
                 admin.setAddress("Hanoi");
-                admin.setStatus(true);
+                admin.setStatus("ACTIVE");
                 admin.setPassword(encoder.encode("admin123")); // hash password
                 admin.setRoles(adminRole);
 
@@ -75,7 +75,7 @@ public class DataInitializer {
                 u.setFullName("Honei-Kery User");
                 u.setPhone("0123456789");
                 u.setAddress("Hanoi");
-                u.setStatus(true);
+                u.setStatus("ACTIVE");
                 u.setPassword(encoder.encode("123"));
                 u.setRoles(role);
 

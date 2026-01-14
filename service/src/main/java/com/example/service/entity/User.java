@@ -37,7 +37,7 @@ public class User {
     private String address;
 
     @Column(nullable = false)
-    private Boolean status = true;
+    private String status = "ACTIVE";
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -13,5 +13,5 @@ public class UserResponse {
     private String phoneNumber;
     private String address;
     private String role;
-    private boolean status;
+    private String status;
 }
