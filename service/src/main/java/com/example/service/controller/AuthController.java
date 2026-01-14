@@ -33,7 +33,7 @@ public class AuthController {
         ApiResponse<AuthResponse> apiResponse = ResponseUtils.success(authResponse, "Đăng nhập thành công");
         return ResponseEntity.ok(apiResponse);
     }
-    
+
     @PostMapping("/refresh-token")
     public ResponseEntity<ApiResponse<AuthResponse>> refreshToken(RefreshTokenRequest refreshTokenRequest) {
         AuthResponse authResponse = authService.refreshToken(refreshTokenRequest);

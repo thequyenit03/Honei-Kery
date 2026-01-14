@@ -41,6 +41,7 @@ public class SecurityConfig {
                         // 1. PUBLIC: Ai cũng vào được (Không cần đăng nhập)
                         .requestMatchers("/api/auth/register").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/refresh-token").permitAll()
                         .requestMatchers("/api/auth/logout").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/products**", "/api/categories**").permitAll()
 
