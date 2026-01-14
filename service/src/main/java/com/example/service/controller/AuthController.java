@@ -1,10 +1,8 @@
 package com.example.service.controller;
 
-import com.example.service.dto.auth.UserResponse;
+import com.cloudinary.Api;
+import com.example.service.dto.auth.*;
 import com.example.service.dto.common.ApiResponse;
-import com.example.service.dto.auth.AuthResponse;
-import com.example.service.dto.auth.LoginRequest;
-import com.example.service.dto.auth.RegisterRequest;
 import com.example.service.service.AuthService;
 import com.example.service.utils.ResponseUtils;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +31,13 @@ public class AuthController {
     public ResponseEntity<ApiResponse<AuthResponse>> login(@RequestBody LoginRequest request) {
         AuthResponse authResponse = authService.login(request);
         ApiResponse<AuthResponse> apiResponse = ResponseUtils.success(authResponse, "Đăng nhập thành công");
+        return ResponseEntity.ok(apiResponse);
+    }
+    
+    @PostMapping("/refresh-token")
+    public ResponseEntity<ApiResponse<AuthResponse>> refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        AuthResponse authResponse = authService.refreshToken(refreshTokenRequest);
+        ApiResponse<AuthResponse> apiResponse = ResponseUtils.success(authResponse, "Làm mới token thành công");
         return ResponseEntity.ok(apiResponse);
     }
 
