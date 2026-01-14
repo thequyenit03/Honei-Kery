@@ -93,6 +93,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse refreshToken(RefreshTokenRequest request) {
+        System.out.println("DEBUG: Đang tìm token: [" + request.getRefreshToken() + "]");
         // 1. Tìm Refresh Token trong DB
         RefreshToken refreshToken = refreshTokenRepository.findByToken(request.getRefreshToken())
                 .orElseThrow(() -> new ResourceNotFoundException("Refresh Token không tồn tại trong DB!"));
