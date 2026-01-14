@@ -136,14 +136,23 @@ public class AuthServiceImpl implements AuthService {
 
     // Tạo Refresh Token và lưu vào DB
     private RefreshToken createRefreshToken(User user) {
-        // Xóa token cũ của user nếu có (để mỗi user chỉ có 1 token active tại 1 thời điểm - tùy logic)
-        // refreshTokenRepository.deleteByUser(user);
+        // 1. Kiểm tra xem User này đã có token trong DB chưa
+        RefreshToken refreshToken = refreshTokenRepository.findByUser(user)
+                .orElse(null);
 
-        RefreshToken refreshToken = RefreshToken.builder()
-                .user(user)
-                .token(UUID.randomUUID().toString())
-                .expiryDate(Instant.now().plusMillis(jwtUtils.getRefreshExpiration()))
-                .build();
+        if (refreshToken == null) {
+            // 2a. Chưa có -> Tạo mới hoàn toàn
+            refreshToken = RefreshToken.builder()
+                    .user(user)
+                    .token(UUID.randomUUID().toString())
+                    .expiryDate(Instant.now().plusMillis(jwtUtils.getRefreshExpiration()))
+                    .build();
+        } else {
+            // 2b. Đã có -> Cập nhật lại token và hạn dùng mới (Thay vì tạo mới gây lỗi Duplicate)
+            refreshToken.setToken(UUID.randomUUID().toString());
+            refreshToken.setExpiryDate(Instant.now().plusMillis(jwtUtils.getRefreshExpiration()));
+        }
+
         return refreshTokenRepository.save(refreshToken);
     }
 
