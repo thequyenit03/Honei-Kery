@@ -66,18 +66,20 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // 1. Cho phép các domain của Frontend
-        // Cậu hãy thay đổi "http://localhost:3000" bằng địa chỉ Frontend thực tế của cậu
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:4200"));
+        // Sử dụng setAllowedOriginPatterns("*") cho phép mọi domain (localhost, vercel, mobile...)
+        // đều có thể gọi API. Đây là cách an toàn để dùng "*" kèm với allowCredentials(true).
+        configuration.setAllowedOriginPatterns(List.of("*"));
 
         // 2. Cho phép các method
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
 
         // 3. Cho phép Header
         // Quan trọng: Phải cho phép "Authorization" để Client gửi JWT lên được
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "x-auth-token"));
 
         // 4. Cho phép gửi Credentials (Cookie, Auth)
         configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(List.of("Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
